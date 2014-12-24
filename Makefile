@@ -1,5 +1,5 @@
 workdir = $(shell pwd)
-opts = --verbose --name rack-app-test --runner upstart --env "SSH_AUTH_SOCK=$(SSH_AUTH_SOCK)"
+opts = --verbose --name rack-app-test --runner sysv-lsb --env "SSH_AUTH_SOCK=$(SSH_AUTH_SOCK)"
 start:
 	./bin/foreman start
 
@@ -9,7 +9,7 @@ pkg:
 pkg-test:
 	cd ../pkgr/ && \
 		bundle exec ruby ./bin/pkgr package $(workdir) $(opts)
-		mv *.deb $(workdir)
+		mv ../pkgr/*.deb .
 
 deps:
 	bundle install --path=vendor --binstubs
