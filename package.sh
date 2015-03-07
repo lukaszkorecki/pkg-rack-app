@@ -1,8 +1,12 @@
 rm -rf vendor || true
 bundle --path=/tmp/vendor
 
-pkgr package . --verboe \
+sshSock="SSH_AUTH_SOCK=$SSH_AUTH_SOCK"
+rubyVersion="RUBY_VERSION=2.1.5"
+bundlerOpts="BUNDLE_WITHOUT=pkg"
+
+bundle exec pkgr package . --verbose \
   --name app-test  \
   --runner upstart \
-  --env "SSH_AUTH_SOCK=$SSH_AUTH_SOCK RUBY_VERSION=2.1.5"
+  --env $sshSock $rubyVersion $bundlerOpts
 
